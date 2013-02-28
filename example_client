@@ -1,0 +1,82 @@
+# Example Gatekeeper Client
+
+
+# Models
+GatekeeperRemote
+  host
+  port
+
+Article > GatekeeperModel
+  title
+  body
+  
+  private
+    callback
+  
+  all: callback     
+    self.callback = callback
+    list = GatekeeperRemote query all Article
+    list.map(Article.newInstance(with self.callback))
+  
+    listen for new article: newArticle
+      newArticle = Article.newInstance(newArticle, with self.callback)
+      self.callback(newArticle, "created")
+    
+    return list
+  
+# Controllers
+
+
+ListController
+  
+  articles
+  
+  load:
+    articles = Article.all(article_updated)
+  
+  private
+  article_updated: article, verb
+    if verb == updated
+      find_view for article
+      if view update view
+    if verb == deleted
+      articles delete article
+      self.update_display
+    if verb == created
+      articles add article
+      self.update_display
+  
+  display:
+    for each article in articles
+      render article as cell
+  
+  select: article
+    show DetailController with article
+    
+  
+DetailController
+  
+  article
+  
+  article_updated: article, verb
+    if verb == updated
+      update view
+    if verb == deleted
+      done
+        
+  setArticle:
+     article.callbacks.push article_updated
+     self display
+    
+  display:
+    render article to view
+    
+  done:
+    article.callbacks.pop
+    close self
+    
+    
+
+  
+  
+

@@ -1,0 +1,33 @@
+Gatekeeper (MongoDB Wrapper)
+  * Manages Users
+  * Manages User permissions to Models
+  * Handles Authentication & Session
+  * Checks permissions on incoming queries
+  * Passes authorized queries to MongoDB
+  * Relays authorized events to Client ORM
+
+Live Model (Client ORM)
+  * If relations are needed, client must add relational support
+  * Queries MongoDB via Gatekeeper
+    - GatekeeperModel#all(instance_callback) should return all gkm_instances
+    - GatekeeperModel#where(query, instance_callback) should return gkm_instances that match the query
+    - GatekeeperModel#find(ids, instance_callback) can take one or more ids and should return those gkm_instances
+    - gkm_instance#save should send a save query to the gatekeeper with the new object attributes
+    - gkm_instance#delete should send a delete query to the gatekeeper with the object id to delete
+  * Create new instance
+    - GatekeeperModel#new(json, callback) required on all instances to receive updates
+                                callback(instance, verb) - used by the UI to update instance display
+  * Maintains a callback stack
+    gkm_instance#callbacks is an array of callbacks that are called for a new event
+    gkm_instance#callbacks.push adds a new callback to the stack
+    gkm_instance#callbacks.pop removes a callback from the stack
+
+
+Next Steps:
+    * Develop CLI version of example Gatekeeper Client
+    * Run two instances of CLI version and behavior-drive the Gatekeeper
+
+
+
+
+
