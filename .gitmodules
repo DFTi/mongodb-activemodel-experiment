@@ -1,0 +1,3 @@
+[submodule "gatekeeper_gem"]
+	path = gatekeeper_gem
+	url = git@github.com:DFTi/gatekeeper_gem.git
