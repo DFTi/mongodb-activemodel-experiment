@@ -25,18 +25,18 @@
 
 * Instantiate: connect to database
   * Arguments:
-		* database username
-		* database password        
-		* database name
+	* database username
+	* database password        
+	* database name
 
 ### Instance Method
 
-*Login: login a user
+* Login: login a user
 	* Arguments:
 		* username
 		* password
 
-*Add Query - store query and process
+* Add Query - store query and process
 
 ##GK Notify
 
@@ -55,9 +55,8 @@
 
 ##GK Query
 
-### Instance Properties
-	* Session
-	* Query made
+### Instance Properties	* Session
+* Query made
 	
 ### Instance Methods
 
